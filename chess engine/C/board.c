@@ -1,6 +1,37 @@
 #include "stdio.h"
 #include "defs.h"
 
+void UpdateListMaterial(S_BOARD *pos)
+{
+    int piece, sq, index, colour;
+
+    for (index = 0; index < BRD_SQ_NUM; ++index)
+    {
+        sq = index;
+        piece = pos->pieces[index];
+        if (piece != OFFBOARD && piece != EMPTY)
+        {
+            colour = PieceCol[piece];
+            if (PieceBig[piece] == TRUE)
+                pos->bigPce[colour]++;
+            if (PieceMin[piece] == TRUE)
+                pos->minPce[colour]++;
+            if (PieceMaj[piece] == TRUE)
+                pos->majPce[colour]++;
+
+            pos->material[colour] += PieceVal[piece];
+
+            pos->pList[piece][pos->pceNum[piece]] = sq;
+            pos->pceNum[piece]++;
+
+            if (piece == wK)
+                pos->KingSq[colour] = sq;
+            if (piece == bK)
+                pos->KingSq[colour] = sq;
+        }
+    }
+}
+
 int ParseFen(char *fen, S_BOARD *pos)
 {
     ASSERT(fen != NULL);
@@ -212,35 +243,4 @@ void PrintBoard(const S_BOARD *pos)
            pos->castlePerm & BKCA ? 'k' : '-',
            pos->castlePerm & BQCA ? 'q' : '-');
     printf("PosKey: %llX\n", pos->posKey);
-}
-
-void UpdateListMaterial(S_BOARD *pos)
-{
-    int piece, sq, index, colour;
-
-    for (index = 0; index < BRD_SQ_NUM; ++index)
-    {
-        sq = index;
-        piece = pos->pieces[index];
-        if (piece != OFFBOARD && piece != EMPTY)
-        {
-            colour = PieceCol[piece];
-            if (PieceBig[piece] == TRUE)
-                pos->bigPce[colour]++;
-            if (PieceMin[piece] == TRUE)
-                pos->minPce[colour]++;
-            if (PieceMaj[piece] == TRUE)
-                pos->majPce[colour]++;
-
-            pos->material[colour] += PieceVal[piece];
-
-            pos->pList[piece][pos->pceNum[piece]] = sq;
-            pos->pceNum[piece]++;
-
-            if (piece == wK)
-                pos->KingSq[colour] = sq;
-            if (piece == bK)
-                pos->KingSq[colour] = sq;
-        }
-    }
 }
