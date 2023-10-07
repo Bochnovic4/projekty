@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "d:/Games/projekty/chess engine/C",
-      "program": "d:/Games/projekty/chess engine/C/build/Debug/outDebug",
+      "cwd": "d:/Games/projekty/minecraft",
+      "program": "d:/Games/projekty/minecraft/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [

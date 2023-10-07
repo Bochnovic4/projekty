@@ -21,7 +21,7 @@
 
 typedef unsigned long long U64;
 
-#define NAME "MY CHESS 1.0"
+#define NAME "VIVEC"
 #define BRD_SQ_NUM 120
 
 #define MAXGAMEMOVES 2048
@@ -214,6 +214,10 @@ typedef struct
 #define CNT(b) CountBits(b)
 #define CLRBIT(bb, sq) ((bb) &= ClearMask[(sq)])
 #define SETBIT(bb, sq) ((bb) |= SetMask[(sq)])
+#define IsBQ(p) (PieceBishopQueen[(p)])
+#define IsRQ(p) (PieceRookQueen[(p)])
+#define IsKn(p) (PieceKnight[(p)])
+#define IsKi(p) (PieceKing[(p)])
 
 /* GLOBALS */
 
@@ -235,8 +239,13 @@ extern int PieceMin[13];
 extern int PieceVal[13];
 extern int PieceCol[13];
 
-extern int FileBrd[BRD_SQ_NUM];
-extern int RankBrd[BRD_SQ_NUM];
+extern int FilesBrd[BRD_SQ_NUM];
+extern int RanksBrd[BRD_SQ_NUM];
+
+extern int PieceKnight[13];
+extern int PieceKing[13];
+extern int PieceRookQueen[13];
+extern int PieceBishopQueen[13];
 
 /* functions */
 
@@ -255,6 +264,13 @@ extern U64 GeneratePosKey(const S_BOARD *pos);
 extern void ResetBoard(S_BOARD *pos);
 extern int ParseFen(char *fen, S_BOARD *pos);
 extern void PrintBoard(const S_BOARD *pos);
-extern void UpdateListMaterial(S_BOARD *pos);
+extern void UpdateListsMaterial(S_BOARD *pos);
+extern int CheckBoard(const S_BOARD *pos);
+
+// validate.c
+extern int SqOnBoard(const int sq);
+
+// attack.c
+extern int SqAttacked(const int sq, const int side, const S_BOARD *pos);
 
 #endif

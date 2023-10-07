@@ -1,0 +1,9 @@
+/.vscode
+/chess engine/C/.vscode
+/chess engine/C/build
+/chess engine/C/output
+./doom/.idea
+./doom/.vscode
+./doom/v1/__pycache__
+./doom/v1/.idea
+./doom/v2/__pycache__
